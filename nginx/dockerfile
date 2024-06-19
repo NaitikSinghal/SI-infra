@@ -1,0 +1,41 @@
+FROM openresty/openresty:alpine
+# Install necessary packages
+RUN apk update && \
+    apk add --no-cache \
+    gcc \
+    g++ \
+    make \
+    curl \
+    git \
+    bash \
+    libressl-dev \
+    zlib-dev \
+    pcre-dev \
+    ca-certificates \
+    file \
+    unzip \
+    openssl && \
+    update-ca-certificates
+# Install LuaRocks
+RUN curl -fSL --insecure http://luarocks.org/releases/luarocks-3.7.0.tar.gz -o luarocks-3.7.0.tar.gz && \
+    echo "Downloading luarocks-3.7.0.tar.gz completed" && \
+    ls -lh luarocks-3.7.0.tar.gz && \
+    file luarocks-3.7.0.tar.gz && \
+    tar zxpf luarocks-3.7.0.tar.gz && \
+    cd luarocks-3.7.0 && \
+    ./configure --prefix=/usr/local/openresty/luajit \
+                --with-lua=/usr/local/openresty/luajit \
+                --lua-suffix=jit-2.1.0-beta3 \
+                --with-lua-include=/usr/local/openresty/luajit/include/luajit-2.1 && \
+    make && \
+    make install && \
+    cd .. && \
+    rm -rf luarocks-3.7.0.tar.gz luarocks-3.7.0
+# Install lua-resty-http using LuaRocks
+RUN /usr/local/openresty/luajit/bin/luarocks install lua-resty-http
+# Add nginx configuration
+COPY nginx.conf /usr/local/openresty/nginx/conf/nginx.conf
+# Expose the default Nginx port
+EXPOSE 80
+# Start the Nginx server
+CMD ["/usr/local/openresty/bin/openresty", "-g", "daemon off;"]

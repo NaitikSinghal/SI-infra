@@ -1,0 +1,5 @@
+apiVersion: v2
+name: grafana
+description: A Grafana Helm chart for Kubernetes
+version: 1.0.0
+appVersion: latest

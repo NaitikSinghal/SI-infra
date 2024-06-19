@@ -1,0 +1,5 @@
+FROM --platform=linux/amd64 mysql:5.7
+ENV MYSQL_ROOT_PASSWORD=Naitiksinghal@2020
+ENV MYSQL_DATABASE=wordpress
+ENV MYSQL_USER=root
+ENV MYSQL_PASSWORD=wordpresspassword

@@ -1,0 +1,20 @@
+replicaCount: 1
+image:
+  repository: naitik01/wordpress
+  tag: latest
+  pullPolicy: IfNotPresent
+
+service:
+  type: ClusterIP
+  port: 80
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteMany
+  size: 10Gi
+
+mysql:
+  host: mysql
+  user: wp_user
+  password: wp_password
+  database: wordpress

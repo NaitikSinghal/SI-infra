@@ -1,0 +1,19 @@
+replicaCount: 1
+image:
+  repository: naitik01/mysql
+  tag: latest
+  pullPolicy: Always
+
+service:
+  type: ClusterIP
+  port: 3306
+
+persistence:
+  enabled: true
+  accessMode: ReadWriteMany
+  size: 10Gi
+
+mysqlRootPassword: Naitiksinghal@2020
+mysqlUser: root
+mysqlPassword: wp_password
+mysqlDatabase: wordpress
