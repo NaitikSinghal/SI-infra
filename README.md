@@ -16,7 +16,7 @@ This project provides a complete setup for deploying a production-grade WordPres
 
 1. **Build the WordPress Docker image:**
     ```sh
-    cd Dockerfiles/wordpress
+    cd ../wordpress
     docker build -t your-dockerhub-username/wordpress .
     ```
 
